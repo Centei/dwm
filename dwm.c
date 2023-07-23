@@ -873,7 +873,7 @@ drawbar(Monitor *m)
 
 	if ((w = mw - tw - x + borderpx) > th) {
 		if (m->sel) {
-			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
+			drw_setscheme(drw, scheme[SchemeNorm]);
 			drw_text(drw, x, y, w - 2 * sp, th, lrpad / 2, m->sel->name, 0);
 			if (m->sel->isfloating)
 				drw_rect(drw, x + boxs, y + boxs, boxw, boxw, m->sel->isfixed, 0);
@@ -1196,7 +1196,7 @@ manage(Window w, XWindowAttributes *wa)
 		c->y = c->mon->wy + c->mon->wh - HEIGHT(c);
 	c->x = MAX(c->x, c->mon->wx);
 	c->y = MAX(c->y, c->mon->wy);
-	c->bw = borderpx;
+	c->bw = wborderpx;
 
 	wc.border_width = c->bw;
 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
