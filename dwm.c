@@ -295,6 +295,7 @@ applyrules(Client *c)
 {
 	const char *class, *instance;
 	unsigned int i;
+	unsigned int b = 1;	
 	const Rule *r;
 	Monitor *m;
 	XClassHint ch = { NULL, NULL };
@@ -322,12 +323,18 @@ applyrules(Client *c)
 				c->switchtotag = selmon->tagset[selmon->seltags];
 				view(&a);
 			}
+			b = 0;
 		}
 	}
 	if (ch.res_class)
 		XFree(ch.res_class);
 	if (ch.res_name)
 		XFree(ch.res_name);
+	if (b) {
+		c->tags = 1;
+		c->switchtotag = selmon->tagset[selmon->seltags];
+		view(&(const Arg){1});
+	}
 	c->tags = c->tags & TAGMASK ? c->tags & TAGMASK : c->mon->tagset[c->mon->seltags];
 }
 
